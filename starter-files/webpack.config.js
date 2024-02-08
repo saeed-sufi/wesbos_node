@@ -3,7 +3,7 @@
 */
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const env = require("dotenv").config({ path: "variables.env" });
+const env = require("dotenv").config({ path: ".env" });
 const nodeEnv = process.env.NODE_ENV || env.parsed.NODE_ENV;
 
 /*
