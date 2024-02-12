@@ -10,7 +10,14 @@ const pool = new Pool({
   ssl: isProduction
 })
 
-// import all of our models
-// require('./models/store')
+const createStoreTable = async () => {
+  try {
+    await pool.query(
+      'CREATE TABLE IF NOT EXISTS store (id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name VARCHAR (255) UNIQUE NOT NULL, slug VARCHAR (255) UNIQUE NOT NULL, description VARCHAR (1000), tags TEXT []);')
+  } catch (error) {
+    throw(error)
+  }
+}
 
-module.exports = { pool }
+createStoreTable()
+module.exports = pool 
