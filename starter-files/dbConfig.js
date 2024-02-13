@@ -13,7 +13,7 @@ const pool = new Pool({
 const createStoreTable = async () => {
   try {
     await pool.query(
-      'CREATE TABLE IF NOT EXISTS store (id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name VARCHAR (255) NOT NULL, slug VARCHAR (255) UNIQUE NOT NULL, description VARCHAR (1000), tags TEXT []);')
+      'CREATE TABLE IF NOT EXISTS store (id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name VARCHAR (255) NOT NULL, slug VARCHAR (255) UNIQUE NOT NULL, description VARCHAR (1000), tags TEXT [], location POINT, address VARCHAR (1000))')
   } catch (error) {
     throw(error)
   }
