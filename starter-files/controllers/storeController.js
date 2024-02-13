@@ -26,3 +26,13 @@ exports.editStore = async (req, res) => {
   const store = await pool.query(`SELECT * FROM store WHERE store.id = $1`, [req.params.id])
   res.render('editStore', { title: `Edit ${store.rows[0].name}`, store: store.rows[0] })
 }
+
+exports.updateStore = async (req, res) => {
+  const store = await pool.query(`SELECT store.slug FROM store WHERE store.id = $1`, [req.params.id])
+  await pool.query(`UPDATE store SET name = $1, description = $2, tags = $3 WHERE store.id = $4`, [req.body.name, req.body.description, req.body.tags, req.params.id])
+
+  req.flash('success', `Successfully updated <strong>${req.body.name}</strong>. <a href="/stores/${store.rows[0].slug}"> View Store ➡️ </a>`)
+  res.redirect(`/stores/${req.params.id}/edit`)
+
+  // res.json(req.body)
+}
