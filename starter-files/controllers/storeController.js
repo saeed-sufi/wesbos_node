@@ -9,10 +9,14 @@ exports.addStore = (req, res) => {
 }
 
 exports.createStore = async (req, res) => {
-  // res.json(req.body)
+
   req.body.tags = Array.isArray(req.body.tags) ? req.body.tags : [req.body.tags]
 
   await pool.query(`INSERT INTO store (name, slug, description, tags) VALUES ($1, $2, $3, $4)`, [req.body.name, req.body.name, req.body.description, req.body.tags])
   req.flash('success', `Successfully Created ${req.body.name}. Care to leave a review?`)
-  res.redirect('/')
+  res.redirect(`/store/${req.body.name}`)
+}
+
+exports.getStores = (req, res) => {
+  res.render('stores', {title: 'Stores'})
 }
