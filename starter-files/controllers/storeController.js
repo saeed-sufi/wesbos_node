@@ -20,5 +20,9 @@ exports.createStore = async (req, res) => {
 exports.getStores = async (req, res) => {
   const stores = await pool.query(`SELECT * FROM store`)
   res.render('stores', { title: 'Stores', stores: stores.rows })
+}
 
+exports.editStore = async (req, res) => {
+  const store = await pool.query(`SELECT * FROM store WHERE store.id = $1`, [req.params.id])
+  res.render('editStore', { title: `Edit ${store.rows[0].name}`, store: store.rows[0] })
 }
